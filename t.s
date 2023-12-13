@@ -1,80 +1,35 @@
 .data
-	intrare: .asciz "in.txt"
-	iesire: .asciz "out.txt"
-	fin: .space 4
+	formatScanf: .asciz "%ld"
 	formatPrintf: .asciz "%ld "
-	str: .space 3
+	input_file: .ascii "in.txt"		
+
+	w: .asciz "w"
+	r: .asciz "r"
+	pointer_input_file: .space 4
 	n: .space 4
-	m: .space 4
 .text
-citire:
-	movl $3, %eax
-	movl fin, %ebx
-	movl $str, %ecx
-	movl $3, %edx
-	int $0x80
-
-	movl str, %eax
-	movl %eax, %ebx
-	andl $0xF, %eax   # prima cifra
-	andl $0xF00, %ebx # a doua cifra
-	shr $8, %ebx
-
-	cmp $10, %ebx        # atunci numarul are doar o cifra
-	jge sfarsit_atribuire
-
-	xor %edx, %edx       # doua cifre
-	movl $10, %ecx
-	mull %ecx
-	addl %ebx, %eax
-
-	sfarsit_atribuire:
-	ret
-
 .global main
-
-# schimb modul de a transforma variabila string in int
-# citesc un caracter pe rand
-# cand dau de "\n" aka 0x0a termin citirea pentru variabila respectiva
-
-
 main:
-
-	# deschide fisier de intrare
-	movl $5, %eax
-	movl $intrare, %ebx
-	movl $0, %ecx
-	movl $0644, %edx
-	int $0x80
-	
-	# am adresa de unde sa citeasca in %eax acum
-	movl %eax, fin
-
-	call citire
-	movl %eax, n
-	
-	pushl n
-	pushl $formatPrintf
-	call printf
+	pushl $r			# cadru de apel pentru fopen // input
+	pushl $input_file
+	call fopen
 	popl %ebx
 	popl %ebx
 
-	pushl $0
-	call fflush
-	popl %ebx
+	movl %eax, pointer_input_file  # pointerul catre fisierul de iesire
+
+	#cin >> n
 	
-	call citire
-	movl %eax, m
+	pushl $n
+	pushl $formatScanf
+	pushl pointer_input_file
+	call fscanf
+	addl $12, %esp
 	
-	pushl m
-	pushl $formatPrintf
-	call printf
-	popl %ebx
-	popl %ebx
-	
-	pushl $0
-	call fflush
-	popl %ebx
+	#pushl n
+	#pushl $formatPrintf
+	#call printf
+	#addl $8, %esp
 exit:
 	movl $1, %eax
 	xor %ebx, %ebx
