@@ -67,7 +67,7 @@ initializare_matrice:
 
 			movl linie, %eax
 			xor %edx, %edx
-			mull n2
+			mull m2
 			addl coloana, %eax
 
 			movl $0, (%edi, %eax, 4)
@@ -267,7 +267,7 @@ for_k_loop:
 			
 			movl linie, %eax
 			xor %edx, %edx
-			mull n2
+			mull m2
 			addl coloana, %eax
 			
 			movl (%esi, %eax, 4), %ecx
@@ -302,7 +302,7 @@ afisare_matrice:
 
 			movl linie, %eax
 			xor %edx, %edx
-			mull n2
+			mull m2
 			addl coloana, %eax
 
 			pushl (%edi, %eax, 4)
