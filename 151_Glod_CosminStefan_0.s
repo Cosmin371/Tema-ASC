@@ -51,32 +51,14 @@ main:
 	addl $2, n2
 	addl $2, m2
 
+xorl %ecx, %ecx				#initializare matrice s cu 0
 initializare_matrice:
-	# initializez toata matricea extinsa s cu 0
-	movl $0, linie
-	parcurgere_linie:
-		movl linie, %ecx
-		cmp n2, %ecx
-		je sfarsit_initializare_matrice
-
-		movl $0, coloana
-		parcurgere_coloana:
-			movl coloana, %ecx
-			cmp m2, %ecx
-			je sfarsit_parcurgere_coloana
-
-			movl linie, %eax
-			xor %edx, %edx
-			mull m2
-			addl coloana, %eax
-
-			movl $0, (%edi, %eax, 4)
-
-			incl coloana
-			jmp parcurgere_coloana
-		sfarsit_parcurgere_coloana:
-		incl linie
-		jmp parcurgere_linie
+	cmp %ecx, dimMat
+	je sfarsit_initializare_matrice
+	
+	movl $0, (%edi, %ecx, 4)
+	incl %ecx
+	jmp initializare_matrice
 sfarsit_initializare_matrice:
 
 movl $0, index
@@ -107,7 +89,7 @@ loop_citire:
 	movl left, %eax
 	incl %eax
 	xor %edx, %edx
-	mull n2
+	mull m2
 	addl right, %eax
 	incl %eax
 	movl $1, (%edi, %eax, 4)
