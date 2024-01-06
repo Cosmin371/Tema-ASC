@@ -8,7 +8,7 @@
 	formatString: .asciz "%s"
 	formatChar: .asciz "%c"
 	zeroX: .asciz "0x"
-	formatPrintfX: .asciz "%X"
+	formatPrintfX: .asciz "%02X"
 	
 	n: .space 4
 	n2: .space 4
