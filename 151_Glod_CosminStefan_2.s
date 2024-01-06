@@ -1,6 +1,6 @@
 .data
-	s: .space 1600 #18 linii si coloane +2 pentru matricea extinsa
-	s1: .space 1600 #copie
+	s: .space 1700 #18 linii si coloane +2 pentru matricea extinsa
+	s1: .space 1700 #copie
 	
 	n: .space 4
 	n2: .space 4
