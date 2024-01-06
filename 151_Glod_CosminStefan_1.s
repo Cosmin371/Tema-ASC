@@ -389,7 +389,7 @@ aflare_lungime_mesaj_criptat:	# aflu lungimea mesajului criptat, apoi o impart l
 	movl %ecx, lenMesaj
 sfarsit_aflare_lungime_mesaj_criptat:
 
-creare_cheie2: # cheia este stocata in variabila criptare
+creare_cheie2:
 
 	xorl %ecx, %ecx		# ecx pentru a sti pozitia elementului din vector
 	xorl %edx, %edx		# edx pentru a sti pe ce byte ne aflam
@@ -438,10 +438,10 @@ creare_cheie2: # cheia este stocata in variabila criptare
 		movl %edx, %eax
 		sal $1, %eax			#inmultesc cu 2
 		movb (%esi, %eax, 1), %bh
-						# inainte de 60 sunt cifrele, dupa sunt caracterele ABCDEF
+						# inainte de 64 sunt cifrele, dupa sunt caracterele ABCDEF
 						
 		part1:				# partea 1 din byte-ul citit		
-		cmpb $60, %bh
+		cmpb $64, %bh
 		jl cifra1
 		caracter1:
 			subb $55, %bh
@@ -453,7 +453,7 @@ creare_cheie2: # cheia este stocata in variabila criptare
 		incl %eax
 		movb (%esi, %eax, 1), %bl
 		
-		cmpb $60, %bl
+		cmpb $64, %bl
 		jl cifra2
 		
 		caracter2:
