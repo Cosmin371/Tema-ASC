@@ -322,7 +322,16 @@ afisare_matrice:
 	incl linie
 	jmp for_lines
 sfarsit_afisare_matrice:
-jmp exit
+
+inchidere_fisiere:
+	pushl pointer_input_file
+	call fclose
+	popl %ebx
+
+	pushl pointer_output_file
+	call fclose
+	popl %ebx
+sfarsit_inchidere_fisiere:
 
 exit:
 	movl $1, %eax
