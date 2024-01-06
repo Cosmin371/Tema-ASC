@@ -1,6 +1,7 @@
 .data
-	s: .space 1600 #18 linii si coloane +2 pentru matricea extinsa
-	s1: .space 1600 #copie
+	s: .space 1700 #18 linii si coloane +2 pentru matricea extinsa
+	s1: .space 1700 #copie
+	# consider si o marja de eroare de 100 de bytes
 	
 	formatScanf: .asciz "%ld"
 	formatPrintf: .asciz "%ld "
@@ -26,8 +27,8 @@
 	aux: .space 4
 	
 	c: .space 4
-	mesaj: .space 12
-	mesaj_criptat: .space 24
+	mesaj: .space 20
+	mesaj_criptat: .space 40
 	
 	lenMesaj: .space 4
 	byte_asamblat: .space 4
